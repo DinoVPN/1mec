@@ -1,0 +1,559 @@
+/* Общие сбросы и базовые стили */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+}
+
+/* Главный контейнер "приложения" */
+.app-container {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    width: 420px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #2d2d2d;
+}
+
+/* Общие стили для заголовков экранов */
+.screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #2d2d2d;
+    background-color: #000000;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.screen-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.screen-header .icon-button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #AAAAAA;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease-in-out;
+    min-width: 40px;
+    text-align: center;
+}
+
+.screen-header .icon-button:hover {
+    color: #FFFFFF;
+}
+
+.screen-header .icon-button.left { text-align: left; }
+.screen-header .icon-button.right { text-align: right; }
+.screen-header .icon-button.hidden { visibility: hidden; }
+
+/* Контент экрана */
+.screen-content {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- Стили для Главного Экрана (Main Screen) --- */
+#mainScreen .screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.status-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #AAAAAA;
+    margin-bottom: 20px;
+}
+
+/* 3D Кнопка */
+.connection-button {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    transform: translateZ(10px);
+    margin: 20px 0;
+}
+
+.connection-button.disconnected {
+    background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.5),
+        inset 0 10px 20px rgba(255, 255, 255, 0.1),
+        0 10px 20px rgba(0,0,0,0.7);
+}
+
+.connection-button.connected {
+    background: linear-gradient(145deg, #0088ff, #005fcc);
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.5),
+        inset 0 10px 20px rgba(255, 255, 255, 0.2),
+        0 5px 15px rgba(0, 122, 255, 0.4);
+}
+
+/* Стиль для неактивной кнопки */
+.connection-button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: linear-gradient(145deg, #2e2e2e, #1a1a1a) !important;
+}
+
+.connection-button.disabled .power-icon {
+    color: #ff3b30 !important;
+}
+
+/* Анимационное кольцо */
+.connection-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.connection-button.connected .connection-ring {
+    border-color: rgba(0, 136, 255, 0.5);
+    opacity: 1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Эффект нажатия */
+.connection-button:active:not(.disabled) {
+    transform: scale(0.95);
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.5),
+        inset 0 5px 10px rgba(0,0,0, 0.3),
+        0 2px 5px rgba(0,0,0,0.7);
+}
+
+.connection-button .power-icon {
+    font-size: 70px;
+    color: #FFFFFF;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease;
+}
+
+.connection-button:active:not(.disabled) .power-icon {
+    transform: scale(0.9);
+}
+
+.traffic-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    color: #AAAAAA;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.traffic-item {
+    display: flex;
+    align-items: center;
+}
+
+.traffic-item i {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #666666;
+}
+
+.traffic-item span {
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+.traffic-data {
+    min-width: 100px;
+    text-align: left;
+}
+
+.location-info {
+    font-size: 16px;
+    color: #AAAAAA;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.change-location-btn {
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: #0088ff;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.change-location-btn:hover {
+    color: #33aaff;
+}
+
+/* Стили для блока с информацией о подписке */
+.subscription-info {
+    font-size: 15px;
+    color: #AAAAAA;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.subscription-info span {
+    color: #0088ff;
+    font-weight: 600;
+}
+
+/* Сообщение о конце подписки */
+.subscription-ended {
+    color: #ff3b30;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+    display: none;
+}
+
+/* Скрывает неактивные экраны */
+.screen:not(.active) { display: none; }
+
+/* --- Стили для Экрана Серверов --- */
+.search-bar {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #2d2d2d;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 25px;
+    background-color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar::placeholder { color: #888888; }
+.search-bar:focus {
+    border-color: #0088ff;
+    box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.3);
+}
+
+.server-list { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.server-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #2d2d2d;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.server-item:last-child { border-bottom: none; }
+
+.server-item:hover { 
+    background-color: #1a1a1a;
+    transform: translateX(5px);
+}
+
+.server-item.selected { 
+    background-color: #252525;
+    border-left: 3px solid #0088ff;
+}
+
+.server-item-left { 
+    display: flex; 
+    align-items: center; 
+}
+
+.server-item-left span.flag { 
+    font-size: 24px; 
+    margin-right: 15px; 
+}
+
+.server-item-left .location-name { 
+    font-size: 17px; 
+    font-weight: 500; 
+    color: #FFFFFF; 
+}
+
+.server-item-right { 
+    display: flex; 
+    align-items: center; 
+    font-size: 15px; 
+    color: #888888; 
+}
+
+.server-item-right i.check-icon { 
+    font-size: 20px; 
+    color: #0088ff; 
+    display: none; 
+}
+
+.server-item.selected .server-item-right i.check-icon { 
+    display: block; 
+}
+
+/* --- Нижняя навигация --- */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 15px 0;
+    border-top: 1px solid #2d2d2d;
+    background-color: #000000;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: #AAAAAA;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 80px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.nav-item.active { 
+    color: #FFFFFF;
+    transform: translateY(-5px);
+}
+
+.nav-item i { 
+    font-size: 20px; 
+    margin-bottom: 5px; 
+    transition: all 0.2s ease;
+}
+
+.nav-item.active i {
+    color: #0088ff;
+    transform: scale(1.1);
+}
+
+/* Стили для раздела настроек */
+.settings-section {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #2d2d2d;
+    padding-bottom: 15px;
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-title {
+    color: #888;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    transition: all 0.2s ease;
+}
+
+.setting-item:active {
+    transform: scale(0.98);
+}
+
+.setting-info {
+    display: flex;
+    align-items: center;
+}
+
+.setting-icon {
+    width: 30px;
+    font-size: 18px;
+    color: #0088ff;
+    margin-right: 10px;
+}
+
+/* Переключатели */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2d2d2d;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #888;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: rgba(0, 136, 255, 0.3);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: #0088ff;
+}
+
+/* Подпись */
+.signature {
+    text-align: center;
+    margin-top: 40px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Стили для светлой темы */
+body.light-theme .app-container {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+body.light-theme .screen-header,
+body.light-theme .bottom-nav {
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+body.light-theme .screen-header h2,
+body.light-theme .server-item-left .location-name,
+body.light-theme .traffic-item span,
+body.light-theme .status-text,
+body.light-theme .location-info,
+body.light-theme .setting-item span {
+    color: #333333;
+}
+
+body.light-theme .search-bar,
+body.light-theme .server-item {
+    background-color: #ffffff;
+    border-color: #e0e0e0;
+}
+
+body.light-theme .server-item:hover {
+    background-color: #f5f5f5;
+}
+
+body.light-theme .server-item.selected {
+    background-color: #e3f2fd;
+    border-left-color: #0088ff;
+}
+
+body.light-theme .connection-button.disconnected {
+    background: linear-gradient(145deg, #e0e0e0, #f5f5f5);
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.1),
+        inset 0 10px 20px rgba(0, 0, 0, 0.05),
+        0 10px 20px rgba(0,0,0,0.1);
+}
+
+body.light-theme .icon-button,
+body.light-theme .nav-item:not(.active),
+body.light-theme .server-item-right,
+body.light-theme .traffic-item i,
+body.light-theme .settings-title {
+    color: #666666;
+}
+
+body.light-theme .nav-item.active {
+    color: #0088ff;
+}
+
+body.light-theme .subscription-info {
+    color: #666666;
+}
+
+body.light-theme .subscription-info span {
+    color: #0066cc;
+}
